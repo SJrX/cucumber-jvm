@@ -67,7 +67,12 @@ public class StubBackend implements Backend {
             public String getPattern() {
                 return pattern;
             }
-
+    
+            @Override
+            public String getKeyword() {
+                return null;
+            }
+    
             @Override
             public boolean isScenarioScoped() {
                 return false;

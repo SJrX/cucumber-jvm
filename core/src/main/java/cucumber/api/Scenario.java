@@ -68,4 +68,9 @@ public interface Scenario {
      * return both the line of the example row the the line of the scenario outline.
      */
     List<Integer> getLines();
+    
+    /**
+     * @return the test case
+     */
+    TestCase getTestCase();
 }

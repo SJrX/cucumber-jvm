@@ -24,16 +24,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Java8StepDefinition implements StepDefinition {
-
+public class Java8StepDefinition implements cucumber.api.java8.Java8StepDefinition, StepDefinition {
+    
     public static <T extends StepdefBody> Java8StepDefinition create(
-        String expression, Class<T> bodyClass, T body, TypeRegistry typeRegistry) {
-        return new Java8StepDefinition(expression, 0, bodyClass, body, typeRegistry);
+        String expression, Class<T> bodyClass, T body, TypeRegistry typeRegistry, String keyword) {
+        return new Java8StepDefinition(expression, 0, bodyClass, body, typeRegistry, keyword);
     }
 
     public static <T extends StepdefBody> StepDefinition create(
-        String expression, long timeoutMillis, Class<T> bodyClass, T body, TypeRegistry typeRegistry) {
-        return new Java8StepDefinition(expression, timeoutMillis, bodyClass, body, typeRegistry);
+        String expression, long timeoutMillis, Class<T> bodyClass, T body, TypeRegistry typeRegistry,String keyword) {
+        return new Java8StepDefinition(expression, timeoutMillis, bodyClass, body, typeRegistry, keyword);
     }
 
     private final long timeoutMillis;
@@ -45,11 +45,14 @@ public class Java8StepDefinition implements StepDefinition {
     private final List<ParameterInfo> parameterInfos;
     private final Method method;
 
+    private final String keyword;
+
     private <T extends StepdefBody> Java8StepDefinition(String expression,
                                                         long timeoutMillis,
                                                         Class<T> bodyClass,
                                                         T body,
-                                                        TypeRegistry typeRegistry) {
+                                                        TypeRegistry typeRegistry,
+                                                        String keyword) {
         this.timeoutMillis = timeoutMillis;
         this.body = body;
 
@@ -57,6 +60,7 @@ public class Java8StepDefinition implements StepDefinition {
         this.method = getAcceptMethod(body.getClass());
         this.parameterInfos = fromTypes(resolveRawArguments(bodyClass, body.getClass()));
         this.expression = createExpression(expression, typeRegistry);
+        this.keyword = keyword;
     }
 
     private StepExpression createExpression(String expression, TypeRegistry typeRegistry) {
@@ -160,5 +164,15 @@ public class Java8StepDefinition implements StepDefinition {
             }
             return argumentType;
         }
+    }
+    
+    @Override
+    public Method getStepMethod() {
+        return method;
+    }
+    
+    @Override
+    public String getKeyword() {
+        return keyword;
     }
 }

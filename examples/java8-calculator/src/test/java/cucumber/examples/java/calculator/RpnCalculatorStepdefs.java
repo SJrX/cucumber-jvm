@@ -1,9 +1,14 @@
 package cucumber.examples.java.calculator;
 
+import cucumber.api.PickleStepTestStep;
 import cucumber.api.Scenario;
+import cucumber.api.runtime.StepDefinition;
+import cucumber.runtime.java8.Java8StepDefinition;
+import gherkin.pickles.PickleStep;
 import io.cucumber.datatable.DataTable;
 import cucumber.api.java8.En;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
