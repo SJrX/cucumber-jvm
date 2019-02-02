@@ -21,7 +21,6 @@ public interface PickleStepTestStep extends TestStep {
      */
     gherkin.pickles.PickleStep getPickleStep();
 
-
     /**
      * Returns the arguments provided to the step definition.
      *

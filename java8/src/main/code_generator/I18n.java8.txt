@@ -41,8 +41,9 @@ public interface ${className} extends LambdaGlueBase {
      * @param body       a lambda expression with no parameters
      */
     default void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(String expression, A0 body) {
+        String keyword = "${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}";
         LambdaGlueRegistry.INSTANCE.get().addStepDefinition((typeRegistry) ->
-            Java8StepDefinition.create(expression, A0.class, body, typeRegistry)
+            Java8StepDefinition.create(expression, A0.class, body, typeRegistry, keyword)
         );
     }
 
@@ -54,8 +55,9 @@ public interface ${className} extends LambdaGlueBase {
      * @param body          a lambda expression with no parameters
      */
     default void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(String expression, long timeoutMillis, A0 body) {
+        String keyword = "${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}";
         LambdaGlueRegistry.INSTANCE.get().addStepDefinition((typeRegistry) ->
-            Java8StepDefinition.create(expression, timeoutMillis, A0.class, body, typeRegistry)
+            Java8StepDefinition.create(expression, timeoutMillis, A0.class, body, typeRegistry, keyword)
         );
     }
 
@@ -69,8 +71,9 @@ public interface ${className} extends LambdaGlueBase {
      * @param body       a lambda expression with ${arity} parameters
      */      
     default <${genericSignature}> void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(String expression, A${arity}<${genericSignature}> body) {
+        String keyword = "${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}";
         LambdaGlueRegistry.INSTANCE.get().addStepDefinition((typeRegistry) ->
-            Java8StepDefinition.create(expression, A${arity}.class, body, typeRegistry)
+            Java8StepDefinition.create(expression, A${arity}.class, body, typeRegistry, keyword)
         );
     }
 
@@ -82,8 +85,9 @@ public interface ${className} extends LambdaGlueBase {
      * @param body          a lambda expression with ${arity} parameters
      */
     default <${genericSignature}> void ${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}(String expression, long timeoutMillis, A${arity}<${genericSignature}> body) {
+        String keyword = "${java.text.Normalizer.normalize(kw.replaceAll("[\\s',!]", ""), java.text.Normalizer.Form.NFC)}";
         LambdaGlueRegistry.INSTANCE.get().addStepDefinition((typeRegistry) ->
-            Java8StepDefinition.create(expression, timeoutMillis, A${arity}.class, body, typeRegistry)
+            Java8StepDefinition.create(expression, timeoutMillis, A${arity}.class, body, typeRegistry, keyword)
         );
     }
 

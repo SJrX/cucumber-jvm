@@ -15,5 +15,7 @@ public interface TestCase {
 
     List<TestStep> getTestSteps();
 
+    List<PickleStepTestStep> getScenarioTestSteps();
+
     String getUri();
 }

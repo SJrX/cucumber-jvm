@@ -144,7 +144,8 @@ class PickleStepDefinitionMatch extends Match implements StepDefinitionMatch {
         return this;
     }
 
-    StepDefinition getStepDefinition() {
+    @Override
+    public StepDefinition getStepDefinition() {
         return stepDefinition;
     }
 

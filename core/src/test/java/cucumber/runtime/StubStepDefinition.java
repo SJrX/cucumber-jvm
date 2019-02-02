@@ -61,7 +61,12 @@ public class StubStepDefinition implements StepDefinition {
     public String getPattern() {
         return expression.getSource();
     }
-
+    
+    @Override
+    public String getKeyword() {
+        throw new IllegalStateException("Hrm");
+    }
+    
     @Override
     public boolean isScenarioScoped() {
         return false;

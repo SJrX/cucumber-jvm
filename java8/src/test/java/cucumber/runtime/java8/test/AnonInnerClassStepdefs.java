@@ -24,7 +24,7 @@ public class AnonInnerClassStepdefs implements GlueBase {
                             assertEquals(42, cukes.intValue());
                             assertEquals("belly", what);
                         }
-                    }, typeRegistry);
+                    }, typeRegistry, "Given");
             }
         });
     }
