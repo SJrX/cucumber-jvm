@@ -63,6 +63,11 @@ public class StubStepDefinition implements StepDefinition {
     }
 
     @Override
+    public String getKeyword() {
+        return "Given";
+    }
+
+    @Override
     public boolean isScenarioScoped() {
         return false;
     }

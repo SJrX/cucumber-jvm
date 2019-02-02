@@ -86,6 +86,16 @@ class Scenario implements cucumber.api.Scenario {
         return testCase.getLines();
     }
 
+    @Override
+    public cucumber.api.TestCase getTestCase() {
+        return testCase;
+    }
+
+    @Override
+    public List<Result> getStepResults() {
+        return new ArrayList<>(stepResults);
+    }
+
     public Throwable getError() {
         if (stepResults.isEmpty()) {
             return null;

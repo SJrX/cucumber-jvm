@@ -38,6 +38,11 @@ final class NoStepDefinition implements StepDefinition {
     }
 
     @Override
+    public String getKeyword() {
+        return null;
+    }
+
+    @Override
     public boolean isScenarioScoped() {
         return false;
     }

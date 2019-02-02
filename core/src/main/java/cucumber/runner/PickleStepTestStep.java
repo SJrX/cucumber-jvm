@@ -63,6 +63,11 @@ class PickleStepTestStep extends TestStep implements cucumber.api.PickleStepTest
     }
 
     @Override
+    public PickleStepDefinitionMatch getStepDefinitionMatch() {
+        return this.definitionMatch;
+    }
+
+    @Override
     public String getStepLocation() {
         return uri + ":" + Integer.toString(getStepLine());
     }

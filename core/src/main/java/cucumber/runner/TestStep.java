@@ -90,4 +90,9 @@ abstract class TestStep implements cucumber.api.TestStep {
         }
         return new Result(status, duration, error);
     }
+
+    @Override
+    public StepDefinitionMatch getStepDefinitionMatch() {
+        return stepDefinitionMatch;
+    }
 }

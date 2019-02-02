@@ -63,6 +63,11 @@ final class TestCase implements cucumber.api.TestCase {
         testSteps.addAll(afterHooks);
         return testSteps;
     }
+    
+    @Override
+    public List<cucumber.api.PickleStepTestStep> getScenarioTestSteps() {
+        return  new ArrayList<cucumber.api.PickleStepTestStep>(this.testSteps);
+    }
 
     @Override
     public String getName() {

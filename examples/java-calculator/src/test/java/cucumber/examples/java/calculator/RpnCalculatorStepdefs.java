@@ -1,8 +1,10 @@
 package cucumber.examples.java.calculator;
 
+import cucumber.api.PickleStepTestStep;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import cucumber.api.java.BeforeStep;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,6 +15,10 @@ import static org.junit.Assert.assertEquals;
 
 public class RpnCalculatorStepdefs {
     private RpnCalculator calc;
+
+    private String lastKeyword = null;
+
+    int stepIndex = 0;
 
     @Given("a calculator I just turned on")
     public void a_calculator_I_just_turned_on() {
@@ -26,7 +32,7 @@ public class RpnCalculatorStepdefs {
         calc.push("+");
     }
 
-    @Given("I press (.+)")
+    @When("I press (.+)")
     public void I_press(String what) {
         calc.push(what);
     }
@@ -44,6 +50,36 @@ public class RpnCalculatorStepdefs {
     @After
     public void after(Scenario scenario) {
         // result.write("HELLLLOO");
+    }
+    
+
+    @BeforeStep
+    public void validateGivenWhenThenConvention(Scenario scenario) {
+    
+        PickleStepTestStep nextStep = scenario.getTestCase().getScenarioTestSteps().get(stepIndex++);
+        
+        String keyword = nextStep.getStepDefinitionMatch().getStepDefinition().getKeyword();
+        
+        if(lastKeyword != null)
+        {
+            switch(lastKeyword){
+                case "Given":
+                    break;
+                case "When":
+                    if (!keyword.equals("Given")) {
+                        break;
+                    }
+                case "Then":
+                    if(keyword.equals("Then")) {
+                        break;
+                    }
+                    throw new IllegalStateException("You must use the Given / When / Then in order when specifying tests, you cannot use a "
+                                                    + keyword + " after you have already used " + lastKeyword + " see :" +
+                                                    nextStep.getStepLocation());
+            }
+        }
+        
+        lastKeyword = keyword;
     }
 
     @Given("the previous entries:")

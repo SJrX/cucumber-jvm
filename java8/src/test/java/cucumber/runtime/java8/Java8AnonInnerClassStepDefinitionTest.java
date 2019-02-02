@@ -15,13 +15,13 @@ public class Java8AnonInnerClassStepDefinitionTest {
 
     @Test
     public void should_calculate_parameters_count_from_body_with_one_param() {
-        Java8StepDefinition java8StepDefinition = Java8StepDefinition.create("I have some step", StepdefBody.A1.class, oneParamStep(), typeRegistry);
+        Java8StepDefinition java8StepDefinition = Java8StepDefinition.create("I have some step", StepdefBody.A1.class, oneParamStep(), typeRegistry, "Given");
         assertEquals(Integer.valueOf(1), java8StepDefinition.getParameterCount());
     }
 
     @Test
     public void should_calculate_parameters_count_from_body_with_two_params() {
-        Java8StepDefinition java8StepDefinition = Java8StepDefinition.create("I have some step", StepdefBody.A2.class, twoParamStep(), typeRegistry);
+        Java8StepDefinition java8StepDefinition = Java8StepDefinition.create("I have some step", StepdefBody.A2.class, twoParamStep(), typeRegistry, "Given");
         assertEquals(Integer.valueOf(2), java8StepDefinition.getParameterCount());
     }
 

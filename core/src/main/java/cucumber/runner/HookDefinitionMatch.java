@@ -1,6 +1,7 @@
 package cucumber.runner;
 
 import cucumber.api.Scenario;
+import cucumber.api.runtime.StepDefinition;
 import cucumber.runtime.HookDefinition;
 import cucumber.runtime.StepDefinitionMatch;
 
@@ -25,5 +26,9 @@ final class HookDefinitionMatch implements StepDefinitionMatch {
     public String getCodeLocation() {
         return hookDefinition.getLocation(false);
     }
-
+    
+    @Override
+    public StepDefinition getStepDefinition() {
+        return null;
+    }
 }

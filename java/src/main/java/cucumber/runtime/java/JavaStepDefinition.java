@@ -27,11 +27,14 @@ class JavaStepDefinition implements StepDefinition {
     private final String shortFormat;
     private final String fullFormat;
 
+    private final String keyword;
+
     JavaStepDefinition(Method method,
                        String expression,
                        long timeoutMillis,
                        ObjectFactory objectFactory,
-                       TypeRegistry typeRegistry) {
+                       TypeRegistry typeRegistry,
+                       String keyword) {
         this.method = method;
         this.timeoutMillis = timeoutMillis;
         this.objectFactory = objectFactory;
@@ -41,6 +44,7 @@ class JavaStepDefinition implements StepDefinition {
         this.argumentMatcher = new ExpressionArgumentMatcher(this.expression);
         this.shortFormat = MethodFormat.SHORT.format(method);
         this.fullFormat = MethodFormat.FULL.format(method);
+        this.keyword = keyword;
     }
 
     private StepExpression createExpression(List<ParameterInfo> parameterInfos, String expression, TypeRegistry typeRegistry) {
@@ -52,7 +56,6 @@ class JavaStepDefinition implements StepDefinition {
         }
     }
 
-    @Override
     public void execute(Object[] args) throws Throwable {
         Utils.invoke(objectFactory.getInstance(method.getDeclaringClass()), method, timeoutMillis, args);
     }
@@ -93,5 +96,10 @@ class JavaStepDefinition implements StepDefinition {
     @Override
     public boolean isScenarioScoped() {
         return false;
+    }
+
+    @Override
+    public String getKeyword() {
+        return keyword;
     }
 }

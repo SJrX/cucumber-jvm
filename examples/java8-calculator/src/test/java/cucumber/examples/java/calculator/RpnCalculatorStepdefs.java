@@ -1,6 +1,8 @@
 package cucumber.examples.java.calculator;
 
+import cucumber.api.PickleStepTestStep;
 import cucumber.api.Scenario;
+import cucumber.api.java.BeforeStep;
 import io.cucumber.datatable.DataTable;
 import cucumber.api.java8.En;
 
@@ -10,6 +12,9 @@ import static org.junit.Assert.assertEquals;
 
 public class RpnCalculatorStepdefs implements En {
     private RpnCalculator calc;
+
+    private int stepIndex = 0;
+    private String lastKeyword = null;
 
     public RpnCalculatorStepdefs() {
         Given("a calculator I just turned on", () -> {
@@ -23,7 +28,7 @@ public class RpnCalculatorStepdefs implements En {
         });
 
 
-        Given("I press (.+)", (String what) -> calc.push(what));
+        When("I press (.+)", (String what) -> calc.push(what));
 
         Then("the result is {double}", (Integer expected) -> assertEquals(expected, calc.value()));
 
@@ -47,6 +52,34 @@ public class RpnCalculatorStepdefs implements En {
                 calc.push(entry.operation);
             }
         });
+        
+        BeforeStep(scenario -> {
+                PickleStepTestStep nextStep = scenario.getTestCase().getScenarioTestSteps().get(stepIndex++);
+        
+                String keyword = nextStep.getStepDefinitionMatch().getStepDefinition().getKeyword();
+        
+                if(lastKeyword != null)
+                {
+                    switch(lastKeyword){
+                        case "Given":
+                            break;
+                        case "When":
+                            if (!keyword.equals("Given")) {
+                                break;
+                            }
+                        case "Then":
+                            if(keyword.equals("Then")) {
+                                break;
+                            }
+                            throw new IllegalStateException("You must use the Given / When / Then in order when specifying tests, you cannot use a "
+                                                            + keyword + " after you have already used " + lastKeyword + " see :" +
+                                                            nextStep.getStepLocation());
+                    }
+                }
+        
+                lastKeyword = keyword;
+            }
+        );
 
     }
 
